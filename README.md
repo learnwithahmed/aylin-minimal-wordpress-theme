@@ -70,6 +70,22 @@ $ yarn serve | npm run serve
 $ yarn build | npm run build
 ```
 
+#### Resources Structure
+
+```bash
+resources/
+|-- fonts/ # Custom typefaces goes here.
+|   |-- .gitkeep
+|-- images/ # Put static images here.
+|   |-- .gitkeep
+|-- scripts/ # Put JS scripts here.
+|   |-- main.js
+|-- styles/ # Styles goes here.
+|   |-- helpers/ # Useful SCSS helpers
+|   |-- _global.scss # global style for theme
+|   |-- main.scss # Put your custom SCSS modules here
+```
+
 ## Contributing
 
 Great that you are considering supporting the project. You have a lot of ways to help us grow. We appreciate all contributions, even the smallest.
