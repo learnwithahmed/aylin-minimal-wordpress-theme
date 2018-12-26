@@ -4,7 +4,7 @@
 
 What's inside?
 
-- [Webpack](//webpack.js.org/) - Task runner
+- [Webpack](//webpack.js.org/) - Module Bundler
 - [SASS](//sass-lang.com/) - a CSS preprocessor
 - [Babel](//babeljs.io/) - JavaScript ES6 to ES5 compiler
 - [Stylelint](//stylelint.io/) - a SCSS linter
