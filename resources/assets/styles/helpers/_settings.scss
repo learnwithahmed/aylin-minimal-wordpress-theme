@@ -1,0 +1,36 @@
+// 1. Global
+// --------------
+
+$global-font-size: 100%;
+$global-width: rem-calc(960);
+$global-lineheight: 1.5;
+$primary: #0634a4;
+$secondary: #f4f6f9;
+$black: #000;
+$body-background: $secondary;
+$body-font-color: $black;
+$body-font-family: 'thesans', sans-serif;
+$serif-font-family: 'garamond', serif;
+$global-margin: 1rem;
+$global-margin-medium: 2rem;
+$global-padding: 1rem;
+$global-padding-medium: 2rem;
+$global-position: 1rem;
+$global-font-weight-normal: 300;
+$global-font-weight-bold: 700;
+$global-border-radius: 0;
+$global-text-direction: ltr;
+
+// 2. Breakpoints
+// --------------
+
+$breakpoints: (
+	small: 0,
+	medium: 640px,
+	large: 960px,
+	xlarge: 1200px,
+	xxlarge: 1440px,
+);
+
+$print-breakpoint: large;
+$breakpoint-classes: (small medium large xlarge xxlarge);
