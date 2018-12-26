@@ -1,0 +1,16 @@
+{
+  "name": "code2gether/Aylin",
+  "description": "Aylin is a WordPress starter theme",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ahmed Abdulrahman",
+      "email": "a.kasapbashi@gmail.com"
+    }
+  ],
+  "type": "wordpress-theme",
+  "require": {
+    "composer/installers": "~1.0"
+  }
+}
