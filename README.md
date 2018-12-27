@@ -11,64 +11,89 @@ What's inside?
 - [Prettier](//prettier.io/) - a SCSS linter
 - [ESLint](//eslint.org/) - a JavaScript linter
 
-### Requirements
+## Important Prerequisites
 
-Boilerplate follows a [WordPress Minimal Requirements](https://wordpress.org/about/requirements/). Make sure you have `PHP >= 5.2.4` installed before moving on.
+### Development Environment
 
-Theme uses [YARN](https://yarnpkg.com/en/docs/install#mac-stable) as a Front-end dependency manager. Make sure your machine has installed following dependencies:
+Make sure you have:
 
-- [Node.js](//nodejs.org/)
-- [YARN](https://yarnpkg.com/en/docs/install#mac-stable)
-- If you would like to use [NPM](//www.npmjs.com/) make sure to install it instead.
+1. [Node](https://nodejs.org/) installed on your system.
+2. [Yarn](https://yarnpkg.com/en/docs/install#mac-stable) globally installed.
+3. `PHP >= 5.2.4` installed before moving on.
 
-## Installation
+### WordPress
 
-WordPress themes lives in the `wp-content/themes` folder. This is where we have to fetch our fresh files.
+Boilerplate follows a [WordPress Minimal Requirements](https://wordpress.org/about/requirements/).
 
-```bash
-# Go to the `themes` directory of your WordPress installation.
-$ cd wp-content/themes
-```
+1. Read [the WordPress theme development guidelines](http://codex.wordpress.org/Theme_Development)
+1. Understand [the WordPress template hierarchy](https://wphierarchy.com/)
+1. Understand [the WordPress Loop](https://developer.wordpress.org/themes/basics/the-loop/)
+1. Understand [how WordPress helps with Data Validation/Sanitization](http://codex.wordpress.org/Data_Validation)
+1. Read up on the following WordPress core APIs:
+   - [the Plugin API](http://codex.wordpress.org/Plugin_API)
+   - [the Shortcode API](http://codex.wordpress.org/Shortcode_API)
+1. Understand when you should use a Custom Functionality Plugin instead of implementing functionality within a theme
+   - [Creating a custom functions plugin for end users](http://justintadlock.com/archives/2011/02/02/creating-a-custom-functions-plugin-for-end-users)
+   - [How to Create a Custom Functionality Plugin (And Why You Need One)](https://www.nutsandboltsmedia.com/how-to-create-a-custom-functionality-plugin-and-why-you-need-one/)
+   -
 
-Clone the repository to the `wp-content/themes` directory.
+### JavaScript
 
-```bash
-# Clone repository
-$ git clone -b master git@github.com:code2gether/aylin.git
-# or if you want to rename the theme directory name
-$ git@github.com:code2gether/aylin.git <theme-name>
-```
+1. This project uses [webpack](https://webpack.js.org/) to provide support for modular JS, read up on the functionality & tools it provides
 
-## Development
+### CSS
 
-[Wepback](https://webpack.js.org/) module bundler is used to processes the application and optimize theme's scripts, stylesheets, and images.
+1. The boilerplate assumes you are using SCSS to write your styles and compiles to CSS using [Node Sass](https://www.npmjs.com/package/node-sass)
+2. [PostCSS](https://postcss.org/) is used to help you write modern CSS. PostCSS is a very popular tool that allows developers to write CSS pre-processors or post-processors using `Plugins`:
+   - [Autoprefixer](https://github.com/postcss/autoprefixer) is used for parsing and adding the correct vendor prefixes to the final generated CSS
+   - [PostCSS Preset Env](https://github.com/csstools/postcss-preset-env) is used to let you convert modern CSS into something most browsers can understand, determining the polyfills you need based on your targeted browsers or runtime environments.
+   - [CSS MQPacker](https://github.com/hail2u/node-css-mqpacker) is used to pack same CSS media query rules into one using PostCSS.
+   - [CSSNANO](https://cssnano.co/) is used to minify your CSS and makes code optimizations to have the least amount of code delivered in production.
 
-#### Resolving front-end dependencies
+## Development Guidelines
 
-Before being able to build theme you have to resolve required dependencies.
+- Avoid committing the built theme to the project repository
+- Avoid committing the `wp-uploads` directory to the project repository
+- Avoid making changes directly to the built theme -- Always use the build process
+- In production avoid uploading the theme development directory to a public server!
+- It is good practice to enable `WP_DEBUG` in your `wp-config.php` file, _but only_ during development. If you use our [Vagrant Dev Environment](https://github.com/code2gether/vagrant-wordpress-dev-environment) setup, its already handled ;)
 
-```bash
-# Go to the `wp-content/themes/aylin/resources` directory
-# Install node dependencies.
+## Standard Theme Development Process
 
-$ yarn | npm i
-```
+## Installation and Setup
 
-Now you have all the packages necessary to run the build process and start developing your theme.
+1. Install WordPress and clear it of unnecessary default themes & plugins. If you use our [Vagrant Dev Environment](https://github.com/code2gether/vagrant-wordpress-dev-environment) setup, skip this line.
+2. Clone/Download the contents of this repository into a directory in your WordPress `wp-content/themes` directory:
+   ```bash
+    $ git clone -b master git@github.com:code2gether/aylin.git
+    # or if you want to change name of project when cloning it
+    $ git@github.com:code2gether/aylin.git <my-theme-name> # without the arrows
+   ```
+3. Open the terminal and navigate to the `my-theme-name` directory:
+   ```bash
+    cd wp-content/themes/my-theme-name/resources
+   ```
+4. (**Note:** The next steps **require** nodejs and yarn)
+5. Run `yarn` to install all dev dependencies
+6. Run `yarn build` to generate the "built theme" for the first time
+7. Log in to the admin and enable the `my-theme-name`
+8. Start Developing! 🎉
 
-#### Building a Theme
+### Development
 
-There are a few available commands which help you to build the theme for different environments:
+To begin developing your application, make sure you are in `my-theme-name` directory:
 
-```bash
-# Go to the `wp-content/themes/aylin/resources` directory
+1. run `yarn start` to begin the `development` build process that uses Browsersync, Webpack and Node SASS.
+2. Develop your theme in the `resources/assets` and `/my-theme-name` directories, the `built assets` will be generated by `webpack` into `dist` directory
+3. Optional Stuff:
+   - To install any dependency, use `yarn add <module(s)>` to easily manage JS dependencies, then use `import <module> from '<module>';` anywhere in your JS files you want to use them.
 
-# Compiles unminified and unoptimized theme assets with source maps.
-$ yarn serve | npm run serve
+### Production
 
-# Compiles minified and optimized theme assets without source maps.
-$ yarn build | npm run build
-```
+1. Delete files you are not using from inside the `/my-theme-name` directory
+2. Make sure to [add a screenshot.png](http://codex.wordpress.org/Theme_Development#Screenshot) to your theme.
+3. Before deploying run `yarn build` to generate a `Production` ready version of the built theme
+4. Deploy the built theme `dist` directory, _not the `assets` directory_
 
 #### Resources Structure
 
