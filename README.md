@@ -1,4 +1,4 @@
-# Aylin
+# AYLIN - Minimal Wordpress Theme
 
 Boilerplate aims to be compatible with a large range of PHP versions, however, still have modern tooling for developing a theme.
 
@@ -65,9 +65,9 @@ Boilerplate follows a [WordPress Minimal Requirements](https://wordpress.org/abo
 1. Install WordPress and clear it of unnecessary default themes & plugins. If you use our [Vagrant Dev Environment](https://github.com/code2gether/vagrant-wordpress-dev-environment) setup, skip this line.
 2. Clone/Download the contents of this repository into a directory in your WordPress `wp-content/themes` directory:
    ```bash
-    $ git clone -b master git@github.com:code2gether/aylin.git
+    $ git clone -b master git@github.com:code2gether/aylin-minimal-wordpress-theme.git
     # or if you want to change name of project when cloning it
-    $ git@github.com:code2gether/aylin.git <my-theme-name> # without the arrows
+    $ git@github.com:code2gether/aylin-minimal-wordpress-theme.git <my-theme-name> # without the arrows
    ```
 3. Open the terminal and navigate to the `my-theme-name` directory:
    ```bash
@@ -118,9 +118,9 @@ Great that you are considering supporting the project. You have a lot of ways to
 - Report an issue
 - Propose a feature
 - Send a pull request
-- Star project on the [GitHub](https://github.com/code2gether/aylin)
+- Star project on the [GitHub](https://github.com/code2gether/aylin-minimal-wordpress-theme)
 - Tell about project around your community
 
 ## License
 
-Aylin is licensed under the [MIT license](http://opensource.org/licenses/MIT).
+AYLIN is licensed under the [MIT license](http://opensource.org/licenses/MIT).
