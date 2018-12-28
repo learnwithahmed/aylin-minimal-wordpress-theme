@@ -8,6 +8,33 @@
  * shiped with various third-parity plugins.
  */
 
+if ( ! function_exists( 'get_asset_hash_path' ) ) :
+	/**
+	* Use assets with hashed names.
+	*
+	* Matches a filename against a hash manifest and returns the hash file name if
+	* it exists.
+	*
+	* @param  string $filename Original name of the file.
+	* @return string $filename Hashed name version of a file.
+	*/
+
+	function get_asset_hash_path( $filename ) {
+
+		$manifest_path = get_template_directory_uri() . '/build/manifest.json';
+
+		if ( ! empty( $manifest_path ) ) {
+				$request  = wp_remote_get( $manifest_path );
+				$manifest = json_decode( wp_remote_retrieve_body( $request ) );
+
+				if ( array_key_exists( $filename, $manifest ) ) {
+						return '/build/' . $manifest->$filename;
+				}
+		}
+
+		return $filename;
+	}
+endif;
 
 if ( ! function_exists( 'vwde_register_scripts' ) ) :
 	/**
@@ -19,10 +46,10 @@ if ( ! function_exists( 'vwde_register_scripts' ) ) :
 	 * @return void
 	 */
 
-	function vwde_register_scripts() {
+	function aylin_register_scripts() {
 
 		// Enqueue the main Stylesheet.
-		wp_enqueue_style('main-stylesheet', get_template_directory_uri() . '/dist/styles/main.css', array(), '2.10.4', false);
+		wp_enqueue_style('theme-css', get_stylesheet_directory_uri() . get_asset_hash_path( 'styles/main.css' ),  false, null);
 
 		// fontawesome 5
 		wp_enqueue_style( 'fontawesome', '//use.fontawesome.com/releases/v5.5.0/css/all.css', array(), '5.5.0', 'all' );
@@ -34,7 +61,7 @@ if ( ! function_exists( 'vwde_register_scripts' ) ) :
 		wp_enqueue_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js', array(), '3.2.1', true );
 
 		// Enqueue App custom scripts goes here
-		wp_enqueue_script('main-js', get_template_directory_uri() . '/dist/scripts/main.js', array('jquery'), '2.10.4', true);
+		wp_enqueue_script('theme-js', get_template_directory_uri() . get_asset_hash_path( 'scripts/main.js' ), ['jquery'], null, true);
 
 		// Add the comment-reply library on pages where it is necessary
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -43,5 +70,5 @@ if ( ! function_exists( 'vwde_register_scripts' ) ) :
 
 	}
 
-	add_action( 'wp_enqueue_scripts', 'vwde_register_scripts' );
+	add_action( 'wp_enqueue_scripts', 'aylin_register_scripts' );
 endif;
