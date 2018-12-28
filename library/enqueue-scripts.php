@@ -36,7 +36,7 @@ if ( ! function_exists( 'get_asset_hash_path' ) ) :
 	}
 endif;
 
-if ( ! function_exists( 'vwde_register_scripts' ) ) :
+if ( ! function_exists( 'aylin_register_scripts' ) ) :
 	/**
 	 * Registers theme's CSS and JavaScript scripts.
 	 *
