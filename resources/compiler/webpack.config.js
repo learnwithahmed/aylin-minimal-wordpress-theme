@@ -6,11 +6,18 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const NonJsEntryCleanupPlugin = require('./non-js-entry-cleanup-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const AssetsPlugin = require('assets-webpack-plugin');
 
 const { context, entry, devtool, outputFolder, publicFolder } = require('./config');
 
 const HMR = require('./hmr');
 const getPublicPath = require('./publicPath');
+
+const assetsPluginInstance = new AssetsPlugin({
+  path: path.resolve(outputFolder),
+  filename: 'assets.json',
+  fullPath: false,
+})
 
 module.exports = (options) => {
   const { dev } = options;
@@ -27,13 +34,16 @@ module.exports = (options) => {
     output: {
       path: path.resolve(outputFolder),
       publicPath: getPublicPath(publicFolder),
-      filename: '[name].js'
+      filename: dev ? '[name].js' : '[name].[hash].js'
     },
     module: {
       rules: [
+        // Disable require.ensure as it's not a standard language feature.
+        { parser: { requireEnsure: false } },
+        // Transform ES6 with Babel
         {
           test: /\.js$/,
-          exclude: /(node_modules|bower_components)\/(?!(dom7|ssr-window|swiper)\/).*/,
+          include: path.resolve(context),
           use: [
             ...(dev ? [{ loader: 'cache-loader' }] : []),
             { loader: 'babel-loader' }
@@ -72,7 +82,7 @@ module.exports = (options) => {
         new FriendlyErrorsWebpackPlugin()
       ] : [
         new MiniCssExtractWebpackPlugin({
-          filename: '[name].css'
+          filename: dev ? '[name].css' : '[name].[contenthash].css'
         }),
         new NonJsEntryCleanupPlugin({
           context: 'styles',
@@ -92,7 +102,8 @@ module.exports = (options) => {
           }
         ], {
           ignore: [ '*.js', '*.ts', '*.scss', '*.css' ]
-        })
+        }),
+        assetsPluginInstance,
       ])
     ]
   }
