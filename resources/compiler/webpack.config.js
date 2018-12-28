@@ -6,18 +6,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const NonJsEntryCleanupPlugin = require('./non-js-entry-cleanup-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
-const AssetsPlugin = require('assets-webpack-plugin');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 const { context, entry, devtool, outputFolder, publicFolder } = require('./config');
 
 const HMR = require('./hmr');
 const getPublicPath = require('./publicPath');
-
-const assetsPluginInstance = new AssetsPlugin({
-  path: path.resolve(outputFolder),
-  filename: 'assets.json',
-  fullPath: false,
-})
 
 module.exports = (options) => {
   const { dev } = options;
@@ -34,7 +28,7 @@ module.exports = (options) => {
     output: {
       path: path.resolve(outputFolder),
       publicPath: getPublicPath(publicFolder),
-      filename: dev ? '[name].js' : '[name].[hash].js'
+      filename: dev ? '[name].js' : '[name]_[contenthash].js'
     },
     module: {
       rules: [
@@ -43,7 +37,7 @@ module.exports = (options) => {
         // Transform ES6 with Babel
         {
           test: /\.js$/,
-          include: path.resolve(context),
+          exclude: /(node_modules|bower_components)\/(?!(dom7|ssr-window|swiper)\/).*/,
           use: [
             ...(dev ? [{ loader: 'cache-loader' }] : []),
             { loader: 'babel-loader' }
@@ -82,7 +76,7 @@ module.exports = (options) => {
         new FriendlyErrorsWebpackPlugin()
       ] : [
         new MiniCssExtractWebpackPlugin({
-          filename: dev ? '[name].css' : '[name].[contenthash].css'
+          filename: dev ? '[name].css' : '[name]_[contenthash].css'
         }),
         new NonJsEntryCleanupPlugin({
           context: 'styles',
@@ -103,7 +97,11 @@ module.exports = (options) => {
         ], {
           ignore: [ '*.js', '*.ts', '*.scss', '*.css' ]
         }),
-        assetsPluginInstance,
+        new WebpackAssetsManifest({
+          output: 'manifest.json',
+          space: 2,
+          writeToDisk: false,
+        }),
       ])
     ]
   }
