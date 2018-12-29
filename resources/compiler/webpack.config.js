@@ -7,11 +7,14 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const NonJsEntryCleanupPlugin = require('./non-js-entry-cleanup-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const { context, entry, devtool, outputFolder, publicFolder } = require('./config');
 
 const HMR = require('./hmr');
 const getPublicPath = require('./publicPath');
+
+const ANALYZE = process.env.ANALYZE === 'true'
 
 module.exports = (options) => {
   const { dev } = options;
@@ -102,6 +105,13 @@ module.exports = (options) => {
           space: 2,
           writeToDisk: false,
         }),
+        ANALYZE && (
+          new BundleAnalyzerPlugin({
+            openAnalyzer: false,
+            analyzerHost: '0.0.0.0',
+            analyzerPort: 9004,
+          })
+        )
       ])
     ]
   }
