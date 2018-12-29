@@ -9,7 +9,8 @@
 	"scripts": {
 		"serve": "node compiler/serve",
 		"start": "node compiler/serve",
-		"build": "node compiler/build"
+		"build": "node compiler/build",
+		"analyze": "ANALYZE=true node compiler/build"
 	},
 	"browserslist": [
 		"> 0.5%",
@@ -57,6 +58,7 @@
 		"url-loader": "^1.1.2",
 		"webpack": "^4.20.2",
 		"webpack-assets-manifest": "^3.1.1",
+		"webpack-bundle-analyzer": "^3.0.3",
 		"webpack-dev-middleware": "^3.4.0",
 		"webpack-hot-middleware": "^2.24.3"
 	}
