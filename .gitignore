@@ -14,7 +14,7 @@ Thumbs.db
 node_modules
 
 # Project folders
-build
+/build
 
 # Log files
 npm-debug.log*
