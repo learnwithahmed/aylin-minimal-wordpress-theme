@@ -9,7 +9,7 @@
 <?php get_header(); ?>
 
 <main>
-	<?php get_template_part( 'templates/content/content', 'search' ); ?>
+	<?php get_template_part( 'inc/templates/content/content', 'search' ); ?>
 </main>
 
 <?php get_footer(); ?>

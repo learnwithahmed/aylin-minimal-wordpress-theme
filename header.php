@@ -17,4 +17,4 @@
 </head>
 	<body <?php body_class(); ?>>
 
-	<?php get_template_part( 'templates/parts/parts', 'header' ); ?>
+	<?php get_template_part( 'inc/inc/templates/parts/parts', 'header' ); ?>

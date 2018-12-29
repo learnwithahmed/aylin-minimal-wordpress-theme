@@ -11,12 +11,12 @@
 <main class="box">
 	<?php if ( have_posts() ) : ?>
 		<?php if ( is_home() && is_front_page() ) : ?>
-			<?php get_template_part( 'templates/content/content' ); ?>
+			<?php get_template_part( 'inc/templates/content/content' ); ?>
 		<?php else : ?>
 			<?php while ( have_posts() ) : ?>
 				<?php the_post(); ?>
 
-				<?php get_template_part( 'templates/content/content', get_post_type() ); ?>
+				<?php get_template_part( 'inc/templates/content/content', get_post_type() ); ?>
 			<?php endwhile; ?>
 		<?php endif; ?>
 	<?php endif; ?>
