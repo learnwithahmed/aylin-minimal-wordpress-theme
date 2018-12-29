@@ -5,7 +5,7 @@ module.exports = {
     scripts: './scripts/main.js'
   },
   devtool: 'cheap-module-eval-source-map',
-  outputFolder: '../build',
+  outputFolder: './build',
   publicFolder: 'build',
   proxyTarget: 'http://app.local',
   watch: [

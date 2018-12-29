@@ -38,6 +38,4 @@ webpack(config, (err, stats) => {
     entrypoints: false,
     children: false
   }));
-
-  console.log();
 });

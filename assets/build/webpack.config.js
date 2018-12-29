@@ -98,21 +98,28 @@ module.exports = (options) => {
             to: path.resolve(outputFolder),
           }
         ], {
-          ignore: [ '*.js', '*.ts', '*.scss', '*.css' ]
+          ignore: [ '*.js', '*.ts', '*.scss', '*.css', '*.json' ]
         }),
         new WebpackAssetsManifest({
           output: 'manifest.json',
           space: 2,
           writeToDisk: false,
-        }),
-        ANALYZE && (
-          new BundleAnalyzerPlugin({
-            openAnalyzer: false,
-            analyzerHost: '0.0.0.0',
-            analyzerPort: 9004,
-          })
-        )
+        })
       ])
     ]
   }
+}
+
+/**
+ * Adds BundleAnalyzer plugin if
+ * process.env.ANALYZE is set
+ */
+if (ANALYZE) {
+  module.exports.plugins.push(
+    new BundleAnalyzerPlugin({
+      openAnalyzer: false,
+      analyzerHost: '0.0.0.0',
+      analyzerPort: 9004,
+    })
+  )
 }
