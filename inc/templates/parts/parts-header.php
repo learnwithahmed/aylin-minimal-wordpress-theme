@@ -13,7 +13,7 @@ $logo   = (string) get_template_directory_uri() . '/dist/images/icons/logo.svg';
 		<img src="<?php echo $logo ;?>" alt="<?php bloginfo( 'name' ); ?>" />
 	</a>
 
-	<?php get_template_part( 'templates/nav/nav', 'top' ); ?>
+	<?php get_template_part( 'inc/templates/nav/nav', 'top' ); ?>
 
 	<?php get_search_form(); ?>
 </header>

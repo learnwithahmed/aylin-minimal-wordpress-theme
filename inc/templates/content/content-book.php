@@ -1,11 +1,11 @@
 <?php
 /**
- * Template part for displaying page content in page.php
+ * Template part for displaying custom-post post content
  *
  * @link https://developer.wordpress.org/themes/basics/linking-theme-files-directories/
  */
 ?>
 
 <article>
-	<?php get_template_part( 'templates/common/common', 'article' ); ?>
+	<?php get_template_part( 'inc/templates/common/common', 'article' ); ?>
 </article>

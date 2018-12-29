@@ -7,7 +7,7 @@
 ?>
 
 <footer class="footer">
-	<?php get_template_part( 'templates/nav/nav', 'bottom' ); ?>
+	<?php get_template_part( 'inc/templates/nav/nav', 'bottom' ); ?>
 
 	<span>&copy; 2018</span>
 </footer>
